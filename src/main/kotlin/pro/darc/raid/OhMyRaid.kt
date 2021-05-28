@@ -31,7 +31,6 @@ class OhMyRaid : KotlinPlugin() {
 
     override fun onPluginEnable() {
         initializeWorld()
-        logger.info("${mainConfig.config.version}")
     }
 
     override fun onPluginDisable() {

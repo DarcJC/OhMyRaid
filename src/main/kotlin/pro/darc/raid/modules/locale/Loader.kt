@@ -12,10 +12,10 @@ object Loader {
 
     /**
      * Getting the locales list in this plugin
-     * Access `cachedLanguages` will be faster when call `loadLocaleSupported` once
+     * Access `cachedLanguages` will be faster when call `getLocaleSupported` once
      */
     @Throws(FileNotFoundException::class)
-    fun loadLocaleSupported(): List<String> {
+    fun getLocaleSupported(): List<String> {
         val langFolder = File(OhMyRaid.plugin.dataFolder, "language")
         releaseResourceDir("lang", langFolder)
         val yamlFiles = langFolder.listFiles { _, name -> name.endsWith(".yml") }

@@ -28,12 +28,13 @@ fun getResourceDirFiles(path: String, depth: Int = 1): Stream<String> {
 }
 
 @Throws(IOException::class)
-fun releaseResourceDir(path: String, dest: File) {
+fun releaseResourceDir(path: String, dest: File, replace: Boolean = true) {
     dest.mkdirs()
     if (!dest.isDirectory) throw IOException("Destination ${dest.path} doesn't exist or is not a directory")
     val files = getResourceDirFiles(path)
     for (i in files) {
         val dst = File(dest, i.substringAfter(path))
+        if (dst.exists() && !replace) continue
         val data = OhMyRaid::class.java.classLoader.getResourceAsStream(i.removePrefix("/"))
         if (data == null) {
             OhMyRaid.plugin.logger.warning("Could not open I/O Stream for $i")
