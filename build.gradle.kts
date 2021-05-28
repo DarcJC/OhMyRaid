@@ -27,7 +27,7 @@ dependencies {
     compileOnly("br.com.devsrsouza.kotlinbukkitapi:serialization:$kotlinbukkitapiVersion", changing)
     compileOnly("br.com.devsrsouza.kotlinbukkitapi:architecture:0.1.0-SNAPSHOT", changing)
     compileOnly("br.com.devsrsouza.kotlinbukkitapi:plugins:$kotlinbukkitapiVersion", changing)
-    compileOnly("org.yaml:snakeyaml:1.28")
+    implementation("org.yaml:snakeyaml:1.28")
 }
 
 tasks.withType<KotlinCompile> {

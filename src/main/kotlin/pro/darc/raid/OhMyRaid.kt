@@ -3,6 +3,7 @@ package pro.darc.raid
 import br.com.devsrsouza.kotlinbukkitapi.architecture.KotlinPlugin
 import br.com.devsrsouza.kotlinbukkitapi.serialization.architecture.config
 import pro.darc.raid.schema.ConfigV1
+import pro.darc.raid.utils.mergeYAML
 import pro.darc.raid.modules.world.initialize as initializeWorld
 
 class OhMyRaid : KotlinPlugin() {
@@ -13,12 +14,11 @@ class OhMyRaid : KotlinPlugin() {
     }
 
     val mainConfig by lazy {
-        saveDefaultConfig()
+        mergeYAML("config.yml")
         val c = config(
             "config.yml",
             ConfigV1(),
             ConfigV1.serializer(),
-            saveOnDisable = true,
             alwaysRestoreDefaults = false,
         )
         c.load()
@@ -31,6 +31,7 @@ class OhMyRaid : KotlinPlugin() {
 
     override fun onPluginEnable() {
         initializeWorld()
+        logger.info("${mainConfig.config.version}")
     }
 
     override fun onPluginDisable() {
