@@ -1,0 +1,6 @@
+name: ${plugin_name}
+main: ${plugin_main}
+version: ${plugin_version}
+authors: ["DarcJC"]
+depend:
+  - KotlinBukkitAPI

@@ -1,0 +1,2 @@
+version: v${plugin_version}
+missing-key: "无法找到对应的语言项"
