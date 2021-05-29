@@ -5,6 +5,7 @@ import br.com.devsrsouza.kotlinbukkitapi.serialization.architecture.config
 import pro.darc.raid.schema.ConfigV1
 import pro.darc.raid.utils.mergeYAML
 import pro.darc.raid.modules.world.initialize as initializeWorld
+import pro.darc.raid.modules.locale.initialize as initializeLocale
 
 class OhMyRaid : KotlinPlugin() {
 
@@ -31,6 +32,7 @@ class OhMyRaid : KotlinPlugin() {
 
     override fun onPluginEnable() {
         initializeWorld()
+        initializeLocale(this)
     }
 
     override fun onPluginDisable() {

@@ -14,5 +14,10 @@ fun initialize() {
             sender.msg("Usage: /ohmyraid help")
         }
 
+        command("test") {
+            executor {
+            }
+        }
+
     }
 }

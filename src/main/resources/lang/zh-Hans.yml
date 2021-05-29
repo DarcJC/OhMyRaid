@@ -1,0 +1,4 @@
+missing-key: "无法找到对应的语言项"
+language-not-supported: "该语言未被本服务器支持"
+language-list: "语言列表: #{list}"
+language-set: "语言已设置为 #{lang}"

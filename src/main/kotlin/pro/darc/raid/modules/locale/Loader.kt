@@ -11,8 +11,8 @@ object Loader {
 
     const val LANGUAGE_DIR = "lang"
 
-    lateinit var cachedLanguages: List<String>
-        private set
+    private var cachedLanguages: List<String> = listOf()
+    private val localeYAMLs = HashMap<String, YamlConfiguration>()
 
     /**
      * Getting the locales list in this plugin
@@ -21,7 +21,6 @@ object Loader {
     @Throws(FileNotFoundException::class)
     fun getLocaleSupported(plugin: KotlinPlugin): List<String> {
         val langFolder = File(plugin.dataFolder, LANGUAGE_DIR)
-        releaseResourceDir("lang", langFolder)
         val yamlFiles = langFolder.listFiles { _, name -> name.endsWith(".yml") }
         if (yamlFiles == null) {
             OhMyRaid.plugin.logger.severe("Could not load locales")
@@ -33,13 +32,38 @@ object Loader {
         return cachedLanguages
     }
 
-    fun loadAllLocalesYaml(plugin: KotlinPlugin): Map<String, YamlConfiguration> {
+    private fun loadAllLocalesYaml(plugin: KotlinPlugin): Map<String, YamlConfiguration> {
         val locales = getLocaleSupported(plugin)
         val langFolder = File(plugin.dataFolder, LANGUAGE_DIR)
+        localeYAMLs.clear()
         return locales.associateWith {
             val lf = File(langFolder, "$it.yml")
-            YamlConfiguration.loadConfiguration(lf)
+            localeYAMLs[it] = YamlConfiguration.loadConfiguration(lf)
+            localeYAMLs[it]!!
         }
+    }
+
+    /**
+     * Get locale's YAML file from language string item
+     * @param lang Language item, e.g. zh-Hans
+     */
+    fun OhMyRaid.getLocale(lang: String): YamlConfiguration {
+        if (localeYAMLs.isEmpty()) loadAllLocalesYaml(this)
+        return localeYAMLs[lang] ?: localeYAMLs[mainConfig.config.default_locale]!!
+    }
+
+    /**
+     * Check if the locale file exist
+     * Must invoke getLocaleSupported once before invoke this method
+     *
+     * <h2>Example:</h2>
+     * <code>
+     *     isLocaleSupport("zh-Hans")
+     * </code>
+     * @param locale local to check
+     */
+    fun isLocaleSupported(locale: String): Boolean {
+        return cachedLanguages.contains(locale)
     }
 }
 
