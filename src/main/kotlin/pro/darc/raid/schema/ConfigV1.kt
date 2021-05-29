@@ -4,6 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConfigV1(
-    val version: Int = 1,
-    val default_locale: String = "",
+    val default_locale: String = "zh_Hans",
 )

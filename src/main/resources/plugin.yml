@@ -4,3 +4,5 @@ version: ${plugin_version}
 authors: ["DarcJC"]
 depend:
   - KotlinBukkitAPI
+api-version: 1.16
+website: https://omr.darc.icu
